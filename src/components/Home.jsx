@@ -1,13 +1,14 @@
-import { Box, Image, Text } from '@chakra-ui/react';
-import React from 'react';
+import { Box, Image, Text } from "@chakra-ui/react";
+import React from "react";
 import btcSrc from "../assets/btc.png";
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
+import Carousal from "./Carousal";
 
 const Home = () => {
   return (
-    <Box bgColor={"blackAlpha.900"} w={"full"} h={"90vh"}>
+    <Box bgColor={"blackAlpha.900"} w={"full"} h={"110vh"}>
       <motion.div
-        style={{ height: "80vh", }}
+        style={{ height: "70vh" }}
         animate={{
           translateY: "25px",
           translateX: "-25px",
@@ -16,20 +17,24 @@ const Home = () => {
         transition={{
           duration: 2,
           repeat: Infinity,
-          repeatType: "reverse"
+          repeatType: "reverse",
         }}
       >
         <Image w={"full"} h={"full"} objectFit={"contain"} src={btcSrc} />
-
       </motion.div>
       <Text
-        fontSize={"6xl"}
+        fontSize={"50px"}
         textAlign={"center"}
         fontWeight={"bold"}
-        color={"goldenrod"} mt={"-10"}>
-        CrptoTracker</Text>
-    </Box>
-  )
-}
+        color={"goldenrod"}
+        mt={"-5"}
+      >
+        CryptoTracker
+      </Text>
 
-export default Home
+      <Carousal />
+    </Box>
+  );
+};
+
+export default Home;

@@ -79,7 +79,7 @@ const Coins = () => {
                 placeholder="Search a Coin"
                 onChange={(e) => setSearch(e.target.value)}
                 aria-label="Search" />
-              <button className="btn btn-outline-success" type="submit">Search</button>
+              {/* <button className="btn btn-outline-success" type="submit" onClick={handleSearch()}>Search</button> */}
             </form>
           </VStack>
 

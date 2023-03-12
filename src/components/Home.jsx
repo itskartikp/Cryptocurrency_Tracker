@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import Carousal from "./Carousal";
 
 const Home = () => {
+
+
   return (
     <Box bgColor={"blackAlpha.900"} w={"full"} h={"110vh"}>
       <motion.div
@@ -31,8 +33,8 @@ const Home = () => {
       >
         CryptoTracker
       </Text>
-
       <Carousal />
+
     </Box>
   );
 };

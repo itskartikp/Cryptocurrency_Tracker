@@ -1,7 +1,6 @@
 import {
   Badge,
   Box,
-  Button,
   Container,
   HStack,
   Image,
@@ -23,8 +22,11 @@ import axios from "axios";
 import { server } from "../index";
 import ErrorComponent from "./ErrorComponent";
 import Chart from "./Chart";
+import { Button } from '@material-ui/core';
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
-const CoinDetails = () => {
+const CoinDetails = ({ user, watchlist, alert, setAlert }) => {
   const [coin, setCoin] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -80,6 +82,52 @@ const CoinDetails = () => {
     }
   };
 
+  const inWatchlist = watchlist.includes(coin?.id);
+
+  const addToWatchList = async () => {
+    const coinRef = doc(db, "watchlist", user.uid);
+    try {
+      await setDoc(coinRef,
+        { coins: watchlist ? [...watchlist, coin.id] : [coin?.id] }
+      );
+      setAlert({
+        open: true,
+        message: `${coin.name} Added to the Watchlist !`,
+        type: "success",
+      });
+
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
+  };
+
+  const removeFromWatchlist = async () => {
+    const coinRef = doc(db, "watchlist", user.uid);
+    try {
+      await setDoc(coinRef,
+        { coins: watchlist.filter((watch) => watch !== coin?.id) },
+        { merge: "true" }
+      );
+      setAlert({
+        open: true,
+        message: `${coin.name} Removed from the Watchlist !`,
+        type: "success",
+      });
+
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
+
+  }
+
   useEffect(() => {
     const fetchCoin = async () => {
       try {
@@ -88,7 +136,7 @@ const CoinDetails = () => {
           `${server}/coins/${params.id}/market_chart?vs_currency=${currency}&days=${days}`
         );
         setCoin(data);
-        // console.log(data);
+
         setChartArray(chartData.prices);
         setLoading(false);
       } catch (error) {
@@ -120,6 +168,29 @@ const CoinDetails = () => {
               </Button>
             ))}
           </HStack>
+
+          {user && (
+            <Button
+              variant="outlined"
+              style={{
+                width: "50%",
+                height: 40,
+                backgroundColor: "goldenrod",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                marginLeft: "25%",
+                marginTop: 20,
+                // color: "white"
+
+              }}
+              onClick={inWatchlist ? removeFromWatchlist : addToWatchList}
+            >
+              {inWatchlist ? "Remove from Watchlist " : "Add to watchlist"}
+            </Button>
+          )
+
+          }
 
           <RadioGroup value={currency} onChange={setCurrency} padding={"8"}>
             <HStack spacing={"4"}>
@@ -166,7 +237,7 @@ const CoinDetails = () => {
             <CustomBar
               high={`${currencySymbol}${coin.market_data.high_24h[currency]}`}
               low={`${currencySymbol}${coin.market_data.low_24h[currency]}`}
-              // low={`${coin.market_data.high_24h}`}
+            // low={`${coin.market_data.high_24h}`}
             />
 
             <Box w={"full"} p="4">

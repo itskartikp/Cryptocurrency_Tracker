@@ -14,7 +14,7 @@ A simple and intuitive cryptocurrency tracker application built using ReactJS.
 > Support for multiple fiat currencies
 
 ## Deployed Application
-You can access the deployed application by clicking on the following link: https://crypto-tracker-app-sooty.vercel.app
+You can access the deployed application by clicking on the following link: https://crypto-trackers-app.netlify.app/
 
 ## Local Setup
 

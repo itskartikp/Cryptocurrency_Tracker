@@ -1,4 +1,5 @@
 import { Button, ModalFooter, useDisclosure } from '@chakra-ui/react';
+// import React, { useEffect } from 'react';
 import React from 'react';
 import {
     Modal,
@@ -31,24 +32,31 @@ const useStyles = makeStyles({
 });
 
 const AuthModal = ({ alert, setAlert, user }) => {
-    // const [alert, setAlert] = useState({
-    //     open: true,
-    //     message: "",
-    //     type: "success",
-    // });
+
     const classes = useStyles();
+
+    // useEffect(() => {
+    //     if (alert.open) {
+    //         document.title = ` Logged in`;
+    //         // document.title = 'My Page Title';
+    //     }
+    // }, [alert]);
 
     const googleProvider = new GoogleAuthProvider();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const signInWithGoogle = () => {
+
         signInWithPopup(auth, googleProvider).then(res => {
+
             setAlert({
                 open: true,
                 message: `Sign Up Successful. Welcome ${res.user.email}`,
                 type: "success",
             });
+
         }).catch(error => {
+
             setAlert({
                 open: true,
                 message: error.message,

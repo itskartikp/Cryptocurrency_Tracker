@@ -22,6 +22,9 @@ const Header = ({ alert, setAlert, user, watchlist }) => {
             <li className="nav-item">
               <Link className="nav-link active" to="/coins" style={{ color: 'rgb(212,175,55)' }}>Coins</Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link active" to="/news" style={{ color: 'rgb(212,175,55)' }}>News</Link>
+            </li>
           </ul>
           {user ? <UserSidebar user={user} alert={alert} setAlert={setAlert} watchlist={watchlist} /> : <AuthModal alert={alert} setAlert={setAlert} user={user} />}
         </div>

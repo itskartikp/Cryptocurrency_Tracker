@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import { auth, db } from "./firebase";
+import News from "./News/News";
 
 function App() {
   const [alert, setAlert] = useState({
@@ -60,6 +61,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/coins" element={<Coins />} />
         <Route path="/exchanges" element={<Exchanges />} />
+        <Route path="/news" element={<News />} />
         <Route path="/coin/:id" element={<CoinDetails user={user} watchlist={watchlist} alert={alert} setAlert={setAlert} />} />
       </Routes>
       <Alert alert={alert} setAlert={setAlert} />
